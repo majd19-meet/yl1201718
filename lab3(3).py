@@ -1,6 +1,6 @@
 import turtle
 
-turtle.register_shape("mheart.gif")
+turtle.addshape("mheart.gif")
 turtle.shape("mheart.gif")
 
 
