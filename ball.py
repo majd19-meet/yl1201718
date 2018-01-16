@@ -1,9 +1,6 @@
 from turtle import *
 import random
-from ball.py import Ball
-import time
 import turtle
-turtle.tracer(0)
 turtle.hideturtle()
 colormode(255)
 SCREEN_SIZE = 640,480
@@ -51,10 +48,3 @@ class Ball(Turtle):
 			if bottom_side_ball <= -screen_height:
 				self.dy = -self.dy
 			
-
-
-
-
-
-
-		
