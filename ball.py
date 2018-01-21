@@ -40,8 +40,6 @@ class Ball(Turtle):
 			if left_side_ball <= -screen_width:
 				self.dx = -self.dx
 			
-			#-self.dx = self.dx
-
 			if top_side_ball >= screen_height:
 				self.dy = -self.dy
 
