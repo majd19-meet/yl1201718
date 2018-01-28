@@ -1,5 +1,6 @@
 from ball import Ball
 import time
+import turtle
 from turtle import *
 import random
 turtle.tracer(0)
@@ -10,8 +11,7 @@ SLEEP = 0.0077
 SCREEN_WIDTH = turtle.getcanvas().winfo_width()/2
 SCREEN_HEIGHT =turtle.getcanvas().winfo_height()/2
 
-MY_BALL = Ball(0,0,10,50,100,"lightpink")
-
+MY_BALL = Ball(0,0,10,50,100,"pink")
 
 NUMBER_OF_BALLS = 5
 MINIMUM_BALL_RADIUS = 10
@@ -27,14 +27,15 @@ for i in range (NUMBER_OF_BALLS):
 	x = random.randint(int(-SCREEN_WIDTH) + int(MAXIMUM_BALL_RADIUS) , int(SCREEN_WIDTH) - int(MAXIMUM_BALL_RADIUS))
 	y = random.randint(int(-SCREEN_HEIGHT) + int(MAXIMUM_BALL_RADIUS),int(SCREEN_HEIGHT) - int(MAXIMUM_BALL_RADIUS))
 	dx = random.randint(MINIMUM_BALL_DX,MAXIMUM_BALL_DX)
-	if dx = 0:
+	if dx == 0:
 		dx = random.randint(MINIMUM_BALL_DX,MAXIMUM_BALL_DX)
-	dy = random.randint(NIMUM_BALL_DY,MAXIMUM_BALL_DY)
-	if dy = 0:
-		dy = random.randint(NIMUM_BALL_DY,MAXIMUM_BALL_DY)
+	dy = random.randint(MINIMUM_BALL_DY,MAXIMUM_BALL_DY)
+	if dy == 0:
+		dy = random.randint(MINIMUM_BALL_DY,MAXIMUM_BALL_DY)
 	radius = random.randint(MINIMUM_BALL_RADIUS,MAXIMUM_BALL_RADIUS)
 	color = (random.random(), random.random(), random.random())
-	ball1 = Ball(self, x, y, dx, dy, radius, color)
+	ball1 = Ball(x, y, dx, dy, radius, color)
+
 	BALLS.append (ball1)
 
 
@@ -43,9 +44,11 @@ def move_all_balls():
 		z.move(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 def collide(ball_a, ball_b):
-	if ball_a = ball_b :
+	ball_a_pos = ball_a.pos()
+	if ball_a == ball_b :
 		return False
-	DISTANCE_BETWEEN_CENTERS = int(ball_a.pos()) - int(ball_b.pos())
+		
+	DISTANCE_BETWEEN_CENTERS = int(ball_a_pos) - int(ball_b.pos())
 	if DISTANCE_BETWEEN_CENTERS+10 <= ball_a.radius + ball_b.radius:
 		return True
 	else:
@@ -70,8 +73,81 @@ def check_all_balls_collision():
 				b = random.randint(0,255)
 				color = (r,g,b)
 				if ball_a < ball_b:
-					ball_a = Ball(X_coordinate, Y_coordinate, X_axis_speed, Y_axis_speed, radius, color)
-					ball_b
+					ball_a.goto(X_coordinate, Y_coordinate) 
+					ball_a.dx = X_axis_speed 
+					ball_a.dy = Y_axis_speed
+					ball_a.shapesize(radius/10)
+					ball_a.color = color
+					ball_b.shapesize(ball_b.radius)
+				else:
+					ball_b.goto(X_coordinate, Y_coordinate)
+					ball_b.dx = X_axis_speed 
+					ball_b.dy = Y_axis_speed
+					ball_b.shapesize(radius/10)
+					ball_b.color = color
+					ball_a.shapesize(ball_b.radius)
+
+def check_myball_collision():
+	for i in BALLS:
+		if collide (i, MY_BALL) == True:
+			radius_i = i.radius
+			radius_MY_BALL= MY_BALL.radius
+			if MY_BALL.radius < i.radius:
+				return False
+		else:
+				X_coordinate = random.randint(int(-SCREEN_WIDTH) + int(MAXIMUM_BALL_RADIUS) , int(SCREEN_WIDTH) - int(MAXIMUM_BALL_RADIUS))
+				Y_coordinate = random.randint(int(-SCREEN_HEIGHT) + int(MAXIMUM_BALL_RADIUS),int(SCREEN_HEIGHT) - int(MAXIMUM_BALL_RADIUS))
+				X_axis_speed = random.randint(MINIMUM_BALL_DX,MAXIMUM_BALL_DX)
+				while X_axis_speed == 0:
+					 X_axis_speed = random.randint(MINIMUM_BALL_DX,MAXIMUM_BALL_DX)
+				Y_axis_speed  = random.randint(NIMUM_BALL_DY,MAXIMUM_BALL_DY)
+				while Y_axis_speed  == 0:
+					Y_axis_speed  = random.randint(NIMUM_BALL_DY,MAXIMUM_BALL_DY)
+				radius = random.randint(MINIMUM_BALL_RADIUS, MAXIMUM_BALL_RADIUS)
+				r = random.randint(0,255)
+				g = random.randint(0,255)
+				b = random.randint(0,255)
+				color = (r,g,b)
+				if ball_a < ball_b:
+					ball_a.goto(X_coordinate,Y_coordinate)
+					ball_b.goto(X_coordinate,Y_coordinate)
+
+	return True
+
+def movearound(event):
+	NEW_X_coordinate = event.x, SCREEN_WIDTH
+	NEW_Y_coordinate = event.y, SCREEN_HEIGHT
+	MY_BALL.goto(NEW_X_coordinate, NEW_Y_coordinate)
+turtle.getcanvas().bind("<Motion>", movearound)
+turtle.listen()
+
+while RUNNING == True:
+	if SCREEN_WIDTH!=turtle.getcanvas().winfo_width()/2 or SCREEN_HEIGHT!=turtle.getcanvas().winfo_height()/2 :
+		SCREEN_WIDTH=turtle.getcanvas().winfo_width()/2 
+		SCREEN_HEIGHT=turtle.getcanvas().winfo_height()/2
+		
+	move_all_balls()
+	check_myball_collision()
+
+	turtle.update()
+	sleep()
+	time()
+
+	
+
+
+
+
+
+
+
+
+
+
+			
+
+
+
 
 
 

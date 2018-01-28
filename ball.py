@@ -14,24 +14,24 @@ class Ball(Turtle):
 		self.goto(x,y)
 		self.dx = dx
 		self.dy = dy
+		self.radius = radius
 		self.shapesize(radius/10)
 		self.shape = ("circle")
-
 
 		r = random.randint (0,255)
 		g = random.randint (0,255)
 		b = random.randint (0,255)
-		self.color(r,g,b)
+		self.color((r,g,b))
 
 	def move(self, screen_width, screen_height):
 			current_x = self.xcor()
 			current_y = self.ycor()
 			new_x = current_x + self.dx
 			new_y = current_y + self.dy
-			right_side_ball = new_x + radius
-			left_side_ball = new_x - radius
-			top_side_ball = new_y + radius
-			bottom_side_ball = new_y - radius
+			right_side_ball = new_x + self.radius
+			left_side_ball = new_x - self.radius
+			top_side_ball = new_y + self.radius
+			bottom_side_ball = new_y - self.radius
 			self.goto (new_x , new_y)
 
 			if right_side_ball >= screen_width:
