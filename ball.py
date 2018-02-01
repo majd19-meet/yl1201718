@@ -16,7 +16,7 @@ class Ball(Turtle):
 		self.dy = dy
 		self.radius = radius
 		self.shapesize(radius/10)
-		self.shape = ("circle")
+		self.shape("circle")
 
 		r = random.randint (0,255)
 		g = random.randint (0,255)
