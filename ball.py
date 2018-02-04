@@ -3,8 +3,10 @@ import random
 import turtle
 turtle.hideturtle()
 colormode(255)
-SCREEN_SIZE = 640,480
-
+#SCREEN_SIZE = 640,480
+SIZE_X=1200
+SIZE_Y=680
+turtle.setup(SIZE_X+20,SIZE_Y+20)
 
 
 class Ball(Turtle):
